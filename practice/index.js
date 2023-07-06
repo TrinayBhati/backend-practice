@@ -1,6 +1,8 @@
 const os = require("node:os");
 const fs = require("node:fs");
 const fileName = "simple.txt";
+const events = require("node:events");
+const http = require("node:http");
 
 // console.log(os); // shows complete object
 
@@ -40,9 +42,12 @@ const fileName = "simple.txt";
 
 // console.log(os.constants); // gives all numbers consts
 
-// fs.writeFile("sample.txt", "file created by fs module", (error)=>{
-//     console.log(error)
-// }) // to create file first then it'll update
+const writeFile = () => {
+  fs.writeFile("sample.txt", "file created by fs module", (error) => {
+    console.log(error);
+  }); // to create file first then it'll update
+};
+// writeFile();
 
 // fs.appendFile("sample.txt",  `${os.EOL} update it ` ,(error)=>{
 //     console.log(error);
@@ -73,7 +78,7 @@ const updateFile = () => {
 const readFile = () => {
   fs.readFile(fileName, (error, data) => {
     if (error) {
-      console.log(error);
+      console.log("ERROR_WHILE_READING", error);
       return;
     }
     console.log("FILE_CONTENT", data.toString());
@@ -104,3 +109,39 @@ const createFolder = () => {
   });
 };
 // createFolder(); // creates folder -> mkdir()
+
+// const myEmitter = new events.EventEmitter();
+// myEmitter.on("MY_EVENT", (e) => {
+//   // listen to an event
+//   console.log("My Event is working", e);
+// });
+// myEmitter.emit("MY_EVENT"); // emit an event
+// setInterval(() => { // running interval every 5 seconds
+//   myEmitter.emit("MY_EVENT"); // emit an event
+// }, 5000);
+
+const SIGNAL_CHANGE = "SIGNALCHANGE";
+const myEmitter = new events.EventEmitter();
+myEmitter.on(SIGNAL_CHANGE, (e) => {
+  // listen to an event
+  const msg = new Date().toLocaleString() + " SIGNAL CHANGED TO " + e + os.EOL;
+  fs.appendFile("signal.log", msg, (error) => {
+    if (error) {
+      console.log("ERROS IS", error);
+      return;
+    }
+  });
+  console.log("My Event is working", e);
+});
+const signalColors = ["GREEN", "YELLOW", "RED"];
+let counter = 0;
+// setInterval(() => {
+//   const index = counter % 3;
+//   counter++;
+//   // console.log(signalColors[index]);
+//   myEmitter.emit(SIGNAL_CHANGE, signalColors[index]);
+// }, 5000);
+
+http.createServer(() => {
+  console.log("server started");
+});
