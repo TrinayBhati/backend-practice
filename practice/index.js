@@ -3,6 +3,7 @@ const fs = require("node:fs");
 const fileName = "simple.txt";
 const events = require("node:events");
 const http = require("node:http");
+const functions = require("./module.js");
 
 // console.log(os); // shows complete object
 
@@ -142,6 +143,89 @@ let counter = 0;
 //   myEmitter.emit(SIGNAL_CHANGE, signalColors[index]);
 // }, 5000);
 
-http.createServer(() => {
-  console.log("server started");
-});
+// http
+//   .createServer(() => {
+//     console.log("server started", os.cpus()[0].model);
+//   })
+//   .listen(8080, () => {
+//     console.log("Server running on 8080");
+//   });
+
+// // better way below using functions
+// const server = () => {
+//   console.log("server started", os.cpus()[0].model);
+// };
+// const onStart = () => {
+//   console.log("Server running on 8080");
+// };
+// http.createServer(server).listen(8080, onStart);
+
+// const server = (req, res) => {
+//   console.log("URL", req.url); // check req.headers,
+//   if (req.url == "/todo") {
+//     res.write(`Request Recieved on ${req.url}`);
+//   } else if (req.url == "/post") {
+//     res.write(`Request Recieved on ${req.url}`);
+//   } else {
+//     res.write(`error 404, requested route ${req.url} not found `);
+//   }
+//   res.end(); // server sends response back to the client
+// };
+// const onStart = () => {
+//   console.log("Server running on 8080");
+// };
+// http.createServer(server).listen(8080, onStart);
+
+// const server = (req, res) => {
+//   console.log("URL", req.url); // check req.headers,
+//   console.log("URL", req.method);
+//   if (req.url == "/todo") {
+//     if (req.method == "GET") {
+//       res.write(`This is a GET request`);
+//     } else {
+//       res.write(`This is a POST request`);
+//     }
+//   } else if (req.url == "/post") {
+//     res.write(`Request Recieved on ${req.url}`);
+//   } else {
+//     res.write(`error 404, requested route ${req.url} not found `);
+//   }
+//   res.end(); // server sends response back to the client
+// };
+// const onStart = () => {
+//   console.log("Server running on 8080");
+// };
+// http.createServer(server).listen(8080, onStart);
+
+// const todos = [
+//   { id: 1, title: "lorm ipsum", completed: true },
+//   { id: 2, title: "lorem isum", completed: false },
+//   { id: 3, title: "lorem ipum", completed: true },
+//   { id: 4, title: "lorem ipum", completed: true },
+//   { id: 5, title: "lorem psum", completed: false },
+//   { id: 6, title: "lorem ipum", completed: true },
+// ];
+// const todoString = JSON.stringify(todos);
+// const server = (req, res) => {
+//   console.log("URL", req.url); // check req.headers,
+//   console.log("URL", req.method);
+//   if (req.url == "/todo") {
+//     if (req.method == "GET") {
+//       res.end(todoString);
+//     } else {
+//       res.write(`This is a POST request`);
+//     }
+//   } else if (req.url == "/post") {
+//     res.write(`Request Recieved on ${req.url}`);
+//   } else {
+//     res.write(`error 404, requested route ${req.url} not found `);
+//   }
+//   res.end(); // server sends response back to the client
+// };
+// const onStart = () => {
+//   console.log("Server running on 8080");
+// };
+// http.createServer(server).listen(8080, onStart);
+
+const sum = functions.add(3, 7);
+console.log(sum);
