@@ -227,5 +227,9 @@ let counter = 0;
 // };
 // http.createServer(server).listen(8080, onStart);
 
-const sum = functions.add(3, 7);
-console.log(sum);
+// const sum = functions.add(3, 7);
+// console.log(sum);
+
+const myServer = http.createServer();
+myServer.on("request", server);
+myServer.listen(8080, onServerUp);
