@@ -4,6 +4,7 @@ const fileName = "simple.txt";
 const events = require("node:events");
 const http = require("node:http");
 const functions = require("./module.js");
+const express = require("express");
 
 // console.log(os); // shows complete object
 
@@ -43,11 +44,11 @@ const functions = require("./module.js");
 
 // console.log(os.constants); // gives all numbers consts
 
-const writeFile = () => {
-  fs.writeFile("sample.txt", "file created by fs module", (error) => {
-    console.log(error);
-  }); // to create file first then it'll update
-};
+// const writeFile = () => {
+//   fs.writeFile("sample.txt", "file created by fs module", (error) => {
+//     console.log(error);
+//   }); // to create file first then it'll update
+// };
 // writeFile();
 
 // fs.appendFile("sample.txt",  `${os.EOL} update it ` ,(error)=>{
@@ -63,52 +64,52 @@ const writeFile = () => {
 // const msg = os.EOL+ new Date().toISOString() + " \n User Logged Out \n";
 // fs.appendFile("Logs.txt" , msg , ()=>{})
 
-const updateFile = () => {
-  const msg = new Date().toISOString() + "User Login Activity\n"; //also can use toLocalString() instead of toISOString()
-  //Asynchronus way we prefer this
-  fs.appendFile("simple.txt", msg, (error) => {
-    if (error) {
-      console.log(error);
-    }
-  });
-};
+// const updateFile = () => {
+//   const msg = new Date().toISOString() + "User Login Activity\n"; //also can use toLocalString() instead of toISOString()
+//   //Asynchronus way we prefer this
+//   fs.appendFile("simple.txt", msg, (error) => {
+//     if (error) {
+//       console.log(error);
+//     }
+//   });
+// };
 // updateFile();
 //synchronus way but we don't prefer it
 // fs.appendFile("Sample.txt", msg);
 
-const readFile = () => {
-  fs.readFile(fileName, (error, data) => {
-    if (error) {
-      console.log("ERROR_WHILE_READING", error);
-      return;
-    }
-    console.log("FILE_CONTENT", data.toString());
-  });
-};
+// const readFile = () => {
+//   fs.readFile(fileName, (error, data) => {
+//     if (error) {
+//       console.log("ERROR_WHILE_READING", error);
+//       return;
+//     }
+//     console.log("FILE_CONTENT", data.toString());
+//   });
+// };
 // readFile();
 
-const deleteFile = () => {
-  fs.unlink(fileName, (error) => {
-    if (error) {
-      console.log("error occured", error);
-      return;
-    }
-    console.log("FILE", fileName, "DELETED SUCCESSFULLY");
-  });
-};
+// const deleteFile = () => {
+//   fs.unlink(fileName, (error) => {
+//     if (error) {
+//       console.log("error occured", error);
+//       return;
+//     }
+//     console.log("FILE", fileName, "DELETED SUCCESSFULLY");
+//   });
+// };
 // deleteFile(); // deletes file
 
-const folderExists = () => {
-  const exists = fs.existsSync("logs");
-  console.log(exists);
-};
-// folderExists();
+// const folderExists = () => {
+//   const exists = fs.existsSync("logs");
+//   console.log(exists);
+// };
+// // folderExists();
 
-const createFolder = () => {
-  fs.mkdir("logs", () => {
-    console.log("FOLDER CREATED SUCCESSFULLY");
-  });
-};
+// const createFolder = () => {
+//   fs.mkdir("logs", () => {
+//     console.log("FOLDER CREATED SUCCESSFULLY");
+//   });
+// };
 // createFolder(); // creates folder -> mkdir()
 
 // const myEmitter = new events.EventEmitter();
@@ -121,21 +122,21 @@ const createFolder = () => {
 //   myEmitter.emit("MY_EVENT"); // emit an event
 // }, 5000);
 
-const SIGNAL_CHANGE = "SIGNALCHANGE";
-const myEmitter = new events.EventEmitter();
-myEmitter.on(SIGNAL_CHANGE, (e) => {
-  // listen to an event
-  const msg = new Date().toLocaleString() + " SIGNAL CHANGED TO " + e + os.EOL;
-  fs.appendFile("signal.log", msg, (error) => {
-    if (error) {
-      console.log("ERROS IS", error);
-      return;
-    }
-  });
-  console.log("My Event is working", e);
-});
-const signalColors = ["GREEN", "YELLOW", "RED"];
-let counter = 0;
+// const SIGNAL_CHANGE = "SIGNALCHANGE";
+// const myEmitter = new events.EventEmitter();
+// myEmitter.on(SIGNAL_CHANGE, (e) => {
+//   // listen to an event
+//   const msg = new Date().toLocaleString() + " SIGNAL CHANGED TO " + e + os.EOL;
+//   fs.appendFile("signal.log", msg, (error) => {
+//     if (error) {
+//       console.log("ERROS IS", error);
+//       return;
+//     }
+//   });
+//   console.log("My Event is working", e);
+// });
+// const signalColors = ["GREEN", "YELLOW", "RED"];
+// let counter = 0;
 // setInterval(() => {
 //   const index = counter % 3;
 //   counter++;
@@ -230,6 +231,63 @@ let counter = 0;
 // const sum = functions.add(3, 7);
 // console.log(sum);
 
-const myServer = http.createServer();
-myServer.on("request", server);
-myServer.listen(8080, onServerUp);
+// const myServer = http.createServer();
+// myServer.on("request", server);
+// myServer.listen(8080, onStart);
+
+const app = express();
+
+// app.get("/", function (req, res) {
+//   res.send("The express server is running");
+// });
+// app.get("/users/:userId", (req, res) => {
+//   console.log(req.params.userId);
+//   const user = {
+//     id: 1,
+//     name: "suresh",
+//     age: 33,
+//   };
+//   res.json(user);
+// });
+// app.get("/todos", (req, res) => {
+//   const todo = {
+//     id: 2,
+//     text: "lorem Ipsum",
+//     description: "loremIpsum vfgd jfjs ",
+//   };
+//   res.json(todo);
+// });
+// app.post("/users", (req, res) => {
+//   //"/create-user"
+//   const responseJson = {
+//     success: true,
+//     message: "user created successfully",
+//   };
+//   res.json(responseJson);
+// });
+// app.put("/users", (req, res) => {
+//   // "replace-user"
+//   const putResponse = {
+//     success: true,
+//     message: "user replaced successfully",
+//   };
+//   res.json(putResponse);
+// });
+// app.delete("/users", (req, res) => {
+//   const deleteResponse = {
+//     success: true,
+//     message: " deleted successfully",
+//   };
+//   res.json(deleteResponse);
+// });
+// // question
+app.get("/users/:userId", (req, res) => {
+  const user = {
+    user: req.params.userId,
+  };
+  res.json(user);
+});
+const port = 8080;
+app.listen(port, () => {
+  console.log("server is up n running", port);
+});

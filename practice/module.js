@@ -6,4 +6,5 @@ const functions = {
   subtract,
 };
 
+//module.exports = add;
 module.exports = functions;
