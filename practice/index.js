@@ -5,6 +5,8 @@ const events = require("node:events");
 const http = require("node:http");
 const functions = require("./module.js");
 const express = require("express");
+require("dotenv").config();
+console.log(process.env.SECRET_NUMBER);
 
 // console.log(os); // shows complete object
 
@@ -236,58 +238,152 @@ const express = require("express");
 // myServer.listen(8080, onStart);
 
 const app = express();
+app.use(express.json()); // app.use() is middleware pasing express.json through it, so everything that passes through the middleware converts to json
+// express.json is a way to access body
+// app.use((req, res, next) => { // works on application level
+//   console.log("kaboom");
+//   if (req.body.token == 1) {
+//     next();
+//   } else {
+//     res.status(401).json({
+//       message: "Access Denied",
+//     });
+//   }
+//   // next(); // if this next is commented then shit won't go any further
+// });
 
-// app.get("/", function (req, res) {
-//   res.send("The express server is running");
-// });
-// app.get("/users/:userId", (req, res) => {
-//   console.log(req.params.userId);
-//   const user = {
-//     id: 1,
-//     name: "suresh",
-//     age: 33,
-//   };
-//   res.json(user);
-// });
-// app.get("/todos", (req, res) => {
-//   const todo = {
-//     id: 2,
-//     text: "lorem Ipsum",
-//     description: "loremIpsum vfgd jfjs ",
-//   };
-//   res.json(todo);
-// });
-// app.post("/users", (req, res) => {
-//   //"/create-user"
-//   const responseJson = {
-//     success: true,
-//     message: "user created successfully",
-//   };
-//   res.json(responseJson);
-// });
-// app.put("/users", (req, res) => {
-//   // "replace-user"
-//   const putResponse = {
-//     success: true,
-//     message: "user replaced successfully",
-//   };
-//   res.json(putResponse);
-// });
-// app.delete("/users", (req, res) => {
-//   const deleteResponse = {
-//     success: true,
-//     message: " deleted successfully",
-//   };
-//   res.json(deleteResponse);
-// });
-// // question
+const myAuth = (req, res, next) => {
+  // can work on api level
+  console.log("kaboom");
+  console.log(req.url);
+  console.log(req.query);
+  // if (req.body.token == 1) {
+  //   // if(req.query.anytihng == "smthn")
+  //   next();
+  // } else {
+  //   res.status(401).json({
+  //     message: "Access Denied",
+  //   });
+  // }
+  next();
+  // next(); // if this next is commented then shit won't go any further
+};
+app.use(myAuth); // again works on application level
+app.use(express.static("files")); // now can access any file in files folder with url http://localhost:8080/sample2.txt
+
+app.get("/", function (req, res) {
+  res.send("The express server is running");
+});
+app.get("/user/:userId", (req, res) => {
+  console.log(req.params.userId);
+  const user = {
+    id: 1,
+    name: "suresh",
+    age: 33,
+  };
+  res.json(user);
+});
+app.get("/todos", (req, res) => {
+  const todo = {
+    id: 2,
+    text: "lorem Ipsum",
+    description: "loremIpsum vfgd jfjs ",
+  };
+  res.json(todo);
+});
+app.post("/users", (req, res) => {
+  //"/create-user"
+  const responseJson = {
+    success: true,
+    message: "user created successfully",
+  };
+  res.json(responseJson);
+});
+app.put("/users", (req, res) => {
+  // "replace-user"
+  const putResponse = {
+    success: true,
+    message: "user replaced successfully",
+  };
+  res.json(putResponse);
+});
+app.delete("/users", (req, res) => {
+  const deleteResponse = {
+    success: true,
+    message: " deleted successfully",
+  };
+  res.json(deleteResponse);
+});
+// users question
 app.get("/users/:userId", (req, res) => {
   const user = {
     user: req.params.userId,
   };
   res.json(user);
 });
+// products question
+const products = [
+  { id: 1, name: "Product 1", quantity: 224 },
+  { id: 2, name: "Product 2", quantity: 534 },
+  { id: 3, name: "Product 3", quantity: 386 },
+];
+app.get("/product/:productId", (req, res) => {
+  const productId = req.params.productId;
+  const product = products.find((product) => product.id == productId);
+  if (product) {
+    res.json(product);
+  } else {
+    // res.send("Product not found");
+    res.status(404).json({ message: "product not found" });
+  }
+});
+// tours question
+app.get("/tours", (req, res) => {
+  fs.readfile(`${__dirname}/data/tours.json`, `utf8`, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+    const tours = JSON.parse;
+    data;
+    res.status(200).json(tours);
+  });
+});
+// post request
+app.post("/user", myAuth, (req, res) => {
+  // myUth is applied on this api at this point
+  console.log(req.body);
+  console.log(req.headers);
+  const responseJson = {
+    message: "success",
+  };
+  res.json(responseJson);
+});
+// sample text read
+app.get("/get-file", (req, res) => {
+  fs.readFile("./files/sample.txt", (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      const fileData = data.toString();
+      res.json({
+        data: fileData,
+      });
+    }
+  });
+});
 const port = 8080;
 app.listen(port, () => {
   console.log("server is up n running", port);
 });
+// console.log(process);
+// console.log(process.env); // environmental variables
+process.env.author_name = "TRINAY";
+// console.log(process.env);
+// // set environmental variables like we did in java for senstive data then get it by env.get.
+
+// const str = "my name is Trinay, age 22";
+// console.log(encodeURIComponent(str)); // converts to url
+// console.log(decodeURIComponent("my%20name%20is%20Trinay%2C%20age%2022"));
+
+//design pattern
