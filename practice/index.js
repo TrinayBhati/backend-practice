@@ -387,3 +387,21 @@ process.env.author_name = "TRINAY";
 // console.log(decodeURIComponent("my%20name%20is%20Trinay%2C%20age%2022"));
 
 //design pattern
+
+// mongo db ===========================================================
+
+// use myDB
+// switched to db myDB
+// show collections
+// student
+// db.student.insertOne({ name: "Jack",
+
+// mobileNo: "9876543211",
+
+// email: "jack@email.com",
+
+// address: "123, ABC Street",
+
+// bloodGroup: "O-",
+
+// rollNo : "13246"})
