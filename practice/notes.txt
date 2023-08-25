@@ -1,0 +1,405 @@
+Parts of web development
+
+Front End ->
+Back End ?
+
+Client - Server (Back End) -> Logic of the application , Stores Data
+
+Options for tech stack for backend?
+Java => Hibernate, Struts, Spring, Spring Boot, JSP etc
+Php => Laravel, CI (Code Igniter), Slim, Symphony etc
+Ruby => ROR (Ruby on Rails) etc
+Python => Django etc
+GoLang => ?
+C# (.net) => MVC, Entity etc
+JavaScript => Express JS, Ember JS, Nest JS etc
+etc
+
+Framework vs Library
+React? => Small set of methods and classes (small sized) => Library
+Angular? => Huge set of methods and classes (large sized) => Frameworks
+
+NodeJS and Express JS?
+NodeJS is a runtime environment for JavaScript.
+ExpressJS is a backend framework based on JavaScript.
+
+Database DB ?
+Place where all the data is stored (Textual Data)
+WE NEVER STORE PHYSICAL FILES INSIDE A DATABASE LIKE DOCUMENTS, AUDIO, VIDEO ETC (Server)
+
+Types of DB
+
+Structed Database : SQL (Structured Query Language) / RDBMS (Relational Database Management System) => MySQL, MSSQL, PostgreSQL, Oracle etc
+Unstructured Database / Non Relational Databases : MongoDB (MQL), Dynamo DB, Cassandra DB etc
+
+Request/ Respones Cycle (Client-Server Model)
+Front End => Backend (Express JS/Node JS) => Database => Backend => Front End
+
+MERN (Mongo Express React and Node)
+MEAN
+Java FS Developer
+
+Full Stack => FE (HTML, CSS, JS) + BE (PHP/JAVA/PYTHON/Express)
+
+Mobile Dev
+
+Android : Java based and Kotlin language
+iOS : Swift
+
+Hybrid Mobile development : 
+Ionic
+Cordava
+React Native : 
+Flutter
+
+
+Steps to setup a backend application based on NodeJS
+1. create a folder
+2. run npm init in the folder
+3. answer basic quetsions asked by npm
+4. create a index.js file and write your code
+5. run the file by running command node <filename> e.g node index.js
+
+Core Modules : 
+1. os
+2. fs
+3. events
+4. http
+
+
+HTTP Server
+1. http module import
+2. http.createServer()
+3. listne(portNo)
+
+
+Postman => It is a tool used to test the output of the APIs.
+
+JS Engines
+
+Google Chrome => v8
+Mozilla Firefox => Spider Monkey
+Edge => Chakra
+etc
+
+
+Created Server -> Listening on a port 
+
+Sent a request => Server emits a request event => Event listerner is trigerred
+
+
+API (Application Programming Interface)
+Types : 
+
+SOAP (Simple Object Access Protocol) => Envelops of Data (XML)
+REST (ReprsEntational State Transfer) => Raw data (JSON)
+
+https://my.newtonschool.co/instructor-portal?tab=student-calendar&course-hash=lgvewm97ohjr
+
+RESTful APIs (HTTP)
+Methods of APIs
+
+GET : Used to retreive the data from the server (E.g Get the list of products, get a list of todos etc)
+POST : Used to send the data to the server in order to create a resource (E.g Submitting a form, Placing an order etc)
+PUT : Used to replace the data on the server (E.g Replace a social media post)
+PATCH : Used to update the record on the server (E.g Update my profile etc)
+DELETE : Used to delete any record on the server (E.g Delete my account etc)
+OPTIONS : Used to check if any resource is accesible to the server (Pre Flight Respone - CORS)
+
+A request has 2 parts
+Header
+Body
+
+
+Response
+Header
+Body
+
+
+Static API : Which has same url and always return same set of data
+Dynamic API : Which has a dynamic part in URL or in Body and sends different data when the dynamic part changes
+
+
+API 
+React -> Backend (Node)
+Client => Server
+
+Server => Server
+
+Environment Variables
+Set : Manual process done by a different way in different OS
+Get : process.env.VARIABLE_NAME
+
+Middleware : 
+
+
+Request -> Middleware (app.use) -> API End point -> Response
+Request -> Middleware 1 (app.use) -> Middleware 2 -> Middleware 3 -> API End point -> Middleware 4 -> Middleware 5 -> Middleware n -> Response
+
+Application Level : Applies to the whole app (app.use())
+API Level : Only effects a particular end point
+Module Level : Applies to all the routes of a particular module
+
+Req and Response parts : 
+Header : Meta data (Basic information of API, server name, origin details etc)
+Body : Actual requested or sent data
+
+
+
+***** INTERVIEW QUESTION****
+What is MVC?
+
+Design Pattern
+
+MVC (Model View Controller)
+
+Controller : Receivs a request and perorms business logic, send the response
+Model : It determines the structure of the data (E.g username, dob, email)
+View : Where you see the UI (React JS)
+
+Layers : It is segregation of code.
+
+eComm Website : 
+
+Product listing and detail page
+Cart
+Checkout module
+My Account
+
+17 July
+Express router
+1. import express module
+2. initialize a express router new express.Router()
+3. change app.get and app.post with router.get and router.post
+4. connect app and router using app.use(router);
+5. create a routes folder
+6. create files in routes folder based on our module requirement
+7. move the respective routes in their files
+8. remove the common part of the route and put it in index file with app.use() in step 4
+
+
+18 July
+
+Same Origin vs Cross Origin Policy
+
+CROSS ORIGIN POLICY IS IMPLEMENTED BY WEB BROWSERS
+
+CORS (Cross Origin Resource Sharing)
+
+Origin => Place from where your request is originated
+
+Cross Orign Example
+Origin => http://localhost:3000/
+Destination => http://localhost:5000/
+
+Origin => http://abc.com
+Destination => http://xyz.com
+
+Same Origin Example
+Origin => https://google.com
+Destination => https://google.com
+
+19 July
+
+Database?
+
+Relational DB (SQL DB) : MySQL, MSSQL, PostgreSQL etc
+Non Relational DB (No SQL DB) : MongoDB, Cassandra etc
+
+MongoDB
+
+Rel DB : Database => Tables => Row & Cols => Cell / Fields
+Non Rel DB : Database => Collections => Documents => Fields
+
+BSON (Binary JSON)
+
+CRUD
+
+CLI (Command Line Interface) : Commands (Queries)
+GUI (Graphical User Interface) MongoDB Compass : Clicks
+
+Database requires a server and a port to run
+localhost:27017
+
+{
+    name: "John Doe",
+    mobileNo: "9876543210",
+    email: "john@email.com",
+    address: "123, ABC Street",
+    bloodGroup: "O+",
+    rollNo : "13245"
+}
+
+Insertion : 
+
+SQL : insert into students (John Doe, 9876543210)
+Mongo: db.students.insertOne({    name: "Jack",
+mobileNo: "9876543211",
+email: "jack@email.com",
+address: "123, ABC Street",
+bloodGroup: "O-",
+rollNo : "13246"})
+
+Commands / Queries
+
+insert() : To insert new record
+find() : To find records
+update() : To update records
+delete() : To delete records
+
+db.students.find({name: "John Doe"})
+
+Operators : 
+Comparision
+    $gt
+    $lt
+    $gte
+    $lte
+    $ne
+    $eq
+    $in
+
+Logical Operators
+    $and
+    $or
+    $not
+
+Write a query to find the students whose age is greater than 20yrs
+db.students.find({
+    age : {
+        $gt : 20
+    }
+})
+
+Write a query to find the students whose age is less than 30yrs
+db.students.find({
+    age : {
+        $lt: 30
+    }
+})
+
+Write a query to find the students whose age is 17yrs
+db.students.find({
+    age: {
+        $eq: 17
+    }
+})
+
+Write a query to find the students whose age is between 30 and 50yrs
+if(age > 30 && age < 50)
+
+db.students.find({
+    $and: [
+        {
+            age: {
+                $gt: 30
+            }
+        },
+        {
+            age: {
+                $lt: 50
+            }
+        }
+    ]
+})
+
+db.students.find({
+     age: { $gt: 30, $lt: 50 }
+})
+
+
+DB Schema (ecommerce)
+
+product : id, price, name, qty
+users
+orders etc
+
+
+Primary Key : A value which uniquely identifies a record in a colleciton/database.
+
+MongoDB : _id => UUID
+
+
+22 July
+
+Pagination : 
+Page size = 10
+Total recores = 101
+
+Page 1 => 1-10
+Page 2 => 11-20
+Page 3 => 21-30
+....
+Page 11 => 101-110
+
+PageNo 3
+
+PageNo 1
+Limit = 10
+Skip => 0
+
+
+PageNo 2
+Limit = 10
+Skip => 10
+
+PageNo 3
+Limit = 10
+Skip => 20
+
+skip = (pageNo - 1) * pageSize
+
+
+Find all the products having price 499, 280 and 1249
+
+db.products.find({
+    price: {
+        $in: [499,280,1249]
+    }
+})
+
+24 July
+Regex : Pattern matching
+
+phone : iPhone 9, iPhone X
+shoe : Mens shoes, womens shoes, kids shoes, reebok shoes, nike shoes etc
+
+
+Query First => Find the document and then update it
+Update First => Directly update the document
+
+26 July
+
+Security:
+Change the password into some differnt value.
+
+Encoding - Decoding : Conversion of text to make is usable for multiple systems (This is not for security) (2 way process)
+
+Encryption - Decryption :  Conversion of plain text into non understandable text (cipher text) with the help of a key "asdfl-=acsdfase-fawef#klfasjlkf" ( 2 way process)
+
+Hashing : Conversion of plain text into non understandable format with the help of a key (salt) (1 way process)
+
+
+Authentication : Verifying the ID of the user (username and password) -> Login
+
+JWT (JSON Web Token) : It is a token which stores information of the authenticated user.
+
+Autorization : Checking if the user has access to a particular resoure -> Access Denied
+
+
+12345
+1234
+asdfl
+zxcv
+Abcd@1234
+Hello@123
+
+
+27 July
+
+Generating a JWT : 
+Pre requisits : 
+    1. User information
+    2. Expriry time
+    3. Secret key
+    4. Library to generate JWT

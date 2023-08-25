@@ -14,7 +14,7 @@ console.log(process.env.SECRET_NUMBER);
 
 // console.log("A",os.EOL,"B"); // end of line
 
-// console.log(os.cpus()); // information of processoe cpus
+// console.log(os.cpus()); // instformation of processoe cpus
 
 // console.log(os.cpus().length);
 
