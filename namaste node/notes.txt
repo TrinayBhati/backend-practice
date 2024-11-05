@@ -1,0 +1,102 @@
+Namaste Node.js
+
+#2
+
+Node.js philosphy – js can run outside the browser 
+ 
+Node.js is written in C++  
+ 
+Node.js is a C++ applicatoin with V8 embeddd into it 
+ 
+V8 can be embedded into any C++ programme 
+ 
+What V8 does?  
+executes JS code 
+ 
+Cycle -> JS Code ------------------> V8 ------------------------> Machine understands and executes the code 
+	                 Converts the code to machine level code 
+	 
+Inside a server --------> Inside Node.Js written in C++ -----------> V8 written in C++ 
+
+V8 is a js engine - that follows ECMASCRIPT standards 
+
+ECMASCRIPT is a standard for scripting languages 
+
+ecmascript standard is folowed by JS, Actionscript and many other languages
+
+========================================================================================================================
+
+#3
+
+NVM - node version manager
+
+node -v -----> check version of node.js
+npm -v ------> version of node package manager
+
+REPL ---> Read Evaluate Print Loop --------> enter into REPL mode by typing node in terminal
+
+Node.js is js runtime environment built on V8 engine
+Node.js ----> V8 engine + superpowers
+
+global object in browser accessible by - 
+	- window
+	- global
+	- self
+	- frames   
+	- global is not defined in browser ------------- what are webworkers
+global object in node js accessible by - 
+	- global 
+this logs - empty object in node js 
+
+- global object is not part of V8 engine 
+- global object is part of node.js 
+- global object has setTimeout, setInterval 
+
+globalThis - points to global object in every environment
+
+========================================================================================================================
+
+#4
+
+to execute a node app, we give node and then entry point the file name ----- node app.js
+
+require function - including a module inside another module
+- require any file or module another
+- require runs the entire file on the spot
+- modules by default protects the internals of files - protects funcitons and variables from leaking
+- to use the functions and variables export and import
+    - whatever we return form exports will be returned by the requirefunciton in another file
+	- export multiple things from module by exporting objects
+
+- this pattern of importing and exporting is called - COMMON JS MODULES (cjs)
+	- by default cjs is enabled
+	- module.exports from modules/ files
+	- require() 
+	- old way 
+	- works in synchronous way - until and unless the file is loaded from require the below code won't work, blocks.
+	- code is run in non-strict mode
+- ES Modules (mjs) - another pattern of import and export - commonly used in react and angular
+	- explicitly define in package json - type : module
+	- need to specify extension name in this imo - without .js extension throws error
+	- export function from files/ modules
+	- import from whatever file
+	- new way - and would become standard way of exporting and importing
+	- async way available in ES6 modules
+	- strict mode is default
+
+- module.exports is an empty object
+	- when making a folder a module by requireing files from that folder in it's indes.js then we can export it.
+	- also no need to specify the indes.js file name in the extension when reqire from folder
+	- whatevr u export from indes.js from a folder it can be required without the indes.js extension
+- module is a collectoin of js code which is private to itself, and can be required when needed by anywhere
+
+ ========================================================================================================================
+
+#5
+
+all the code inside a module is wrapped into a function and then executed, just the way block scope works in js.
+	- this is the reason why we cannot access variables and funcitonsof another module unless it's required and exported
+	- when we call require and give it a path - all this happens
+	- also that function is IIFE ( immedietly invoked function expression)
+
+
