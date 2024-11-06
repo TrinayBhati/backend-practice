@@ -1,2 +1,4 @@
  
  JSON.stringify
+ IIFE - in detail
+ options - head - api methods

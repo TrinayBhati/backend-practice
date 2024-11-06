@@ -92,11 +92,40 @@ require function - including a module inside another module
 
  ========================================================================================================================
 
-#5
+#5 Diving into the Nodejs github repo
 
 all the code inside a module is wrapped into a function and then executed, just the way block scope works in js.
-	- this is the reason why we cannot access variables and funcitonsof another module unless it's required and exported
+	- this is the reason why we cannot access variables and funcitons of another module unless it's required and exported
 	- when we call require and give it a path - all this happens
-	- also that function is IIFE ( immedietly invoked function expression)
+	- also that function is IIFE (immedietly invoked function expression)
+	- keeps variables and functions inside safe and private 
+- How are functions and variables private in different modules?
+	- IIFE and require statement - IIFE wraps the module code 
+- How do u get access to module.export?
+	- when the file/module is wrapped inside a function IIFE - that fucntion has module as a parameter
+	- nodejs passes modules and requires as one of the parameters to the IFFE in which the code is wrapper
+	
+five step mechanish of require	
+	1. Resolving the module 
+		- can be ./localpath, .json, node:modules	
+	2. Loading the module
+		- load the file content according to file type
+	3. Compile
+		- Wraps inside an IFFE - wrapsafe as in node open source code 
+		- string concatination - see the image for refernece
+ 			- how node.js wraps files - https://imgur.com/a/20lzsXF
+	4. Code evaluation
+		- in this step - module.exports is returned 
+	5. Caching
+		- now the module is cached, not to be loaded again and again
+
+the js code is not directly passed to V8, it's wrapped inside IFFE and then passed to V8
+
+ ========================================================================================================================
+
+#6 - libuv async IO
+
+- Node.js - event-driven architechture - asynchronous I/O 
+
 
 
