@@ -111,9 +111,9 @@ five step mechanish of require
 	2. Loading the module
 		- load the file content according to file type
 	3. Compile
-		- Wraps inside an IFFE - wrapsafe as in node open source code 
+		- Wraps inside an IFFE - wrapsafe as in node open source code 	
 		- string concatination - see the image for refernece
- 			- how node.js wraps files - https://imgur.com/a/20lzsXF
+ 			- how node.js wraps files - https://imgur.com/a/wrapping-inside-iffe-20lzsXF
 	4. Code evaluation
 		- in this step - module.exports is returned 
 	5. Caching
@@ -126,6 +126,55 @@ the js code is not directly passed to V8, it's wrapped inside IFFE and then pass
 #6 - libuv async IO
 
 - Node.js - event-driven architechture - asynchronous I/O 
+	- js being synchronous single threaded language, executes a js file code line by line
+	- thread - in os, thread is like a seperate container which runs any process/ application 
+	- single thread and v8 engine is running on it
+	- js by itself is synchronous but with superpowers Node becomes asynchronous - node can perform asyn tasks
+
+- refer to working of js in js notes - reference image - https://imgur.com/a/js-internal-working-node-lecture-JHn5ZZJ
+- whenever we run any js code
+	- code is executed in call stack 
+	- a global execution context is created and pushed in call stack 
+	- code runs line by line in synchronous way
+	- variables and function stored in memory heap
+	- js engine also has garbage collector, which collects unused variables funcitions, clears memory
+		- in low level languages - we need to allocate memory and reallocate is - in js it's managed by garbage collector 
+	- function execution context is pushed in stack, now the function code is running in this function context.
+
+- js engine with supoerpowers provided using libuv 
+	- image reference - https://imgur.com/a/node-js-using-lubuv-superpowers-heL49hI
+	- js engine cannot connect/communicate to file system, database, servers, timers, and more 
+	- with the help of libuv, js engine can do all this stuff.
+	- libuv can make an api call, can read the files, can make connection to db and gets the response and give it back to js engine
+		- v8 engine offloads the tasks to libuv
+	- with libuv asynchronous I/O is made simple - libuv is a C code - v8 is C++ code 
+		- image reference - https://imgur.com/a/v8-libuv-relation-VKsc5lX
+
+- Nodejs is async - js is synchronous - v8 js engine is synchronous - with libuv V8 is async called node js
+- image for reference - https://ibb.co/cxSn0P7
+- js engine V8 resolves everything quickly - goes to call stack GEC is created - function runs 
+- synchronous tasks are performed - when any asynchronous task is performed
+	- it's pushed to libuv and js engine moves to next line
+	- and completes execution - then libuv after resolving that task - returns the response to js engine
+	- then function context is created in js engine call stack and resolved.
+- Node js can do async I/O 
+- node js is non blocking I/O - as it's not blocking main thread - mian thread being the js engine 
+	- which was not affected by api calls or anything - as it was pushed to libuv
+	- don't block the mian thread 
+
+
+
+
+	
+
+
+	
+
+
+
+	
+	
+
 
 
 
