@@ -2,6 +2,8 @@
  JSON.stringify
  IIFE - in detail
  options - head - api methods
+ readFile - utf8 - what is this?
+
  error boundaries - in react     - react.memo vs useMemo
 
  - clustering in node js
@@ -9,4 +11,8 @@
  streaming
  dns module, fs module
  server creation in https without expression
+
+ mvvm design pattern - model view view model
+ mvc 
+ dependency injection
 

@@ -135,7 +135,7 @@ the js code is not directly passed to V8, it's wrapped inside IFFE and then pass
 - whenever we run any js code
 	- code is executed in call stack 
 	- a global execution context is created and pushed in call stack 
-	- code runs line by line in synchronous way
+	- code runs line by line in 	 way
 	- variables and function stored in memory heap
 	- js engine also has garbage collector, which collects unused variables funcitions, clears memory
 		- in low level languages - we need to allocate memory and reallocate is - in js it's managed by garbage collector 
@@ -161,6 +161,89 @@ the js code is not directly passed to V8, it's wrapped inside IFFE and then pass
 - node js is non blocking I/O - as it's not blocking main thread - mian thread being the js engine 
 	- which was not affected by api calls or anything - as it was pushed to libuv
 	- don't block the mian thread 
+
+ ========================================================================================================================
+
+#7 - sync async setTimeoutZero Code
+
+ - require function works in a synchronous way in commonjs module 
+ - in file async.js result inside function multiply is a temporary variable, needed only inside the function
+ 	- would be garbage collected once returned
+- when using require - can also use node:crypto or only crypto works - node colon means this is a core module
+	- whenever we find sync after any method, it means it's thread blocking operation - it'd block main thread
+	- sync functions don't have callbacks - their counterpart which is synchronous will have callbacks
+- sync functions block main thread - not to use them
+- when passing setTimeoutwith 0 millli seconds
+	- it's not as if it would be logged instantly
+	- all the callbacks which are sent to libuv will only be executed once after the Global execution context is out of the call stack
+
+ ========================================================================================================================
+
+#8 - Deep dive into V8 JS engine
+
+- when js code is passed to V8 engine - there are alot of things that happen behind the scenes
+	- image reference of the entire internal working of js engine - https://ibb.co/St5gRfd
+	- V8's working and architechture
+	
+- image reference for first step - https://ibb.co/rMCy1ZF 
+a - Parsing - first step when code is passed to V8 
+	i. Lexical Analysis (Tokenization)
+		- code that we give is broken down into tokens 
+		- for V8 engine to read the code - not line by line - token by token
+	ii. Syntax Analysis
+		- an abstract syntax tree(AST) is created
+		- those tokens are converted to AST - explore https://astexplorer.net/
+		- image reference - https://ibb.co/KGtKWcD
+		- when the Abstract Syntax Tree cannot be generated - it's called syntax error
+
+- image reference for second step  - https://ibb.co/BGNwFXD
+- JIT compilation - just in time compilation
+b - Interpretted and Compilation
+	i. Ignition Interpretted
+		- AST passed to google V8's interpretter
+		- job of interpretter is to convert the AST to Byte code
+	ii. Execution happens
+		- when interpretting it recognizes some code which has being used alot 
+			- then ignition interpretter tries to give that code to TurboFan compiler
+			- so when next time the code runs next time it executes fast due to compiler.
+			- Hot Code - whatever code can be optimized - reusable code, reused functins variables
+				- Hot code is passed to TurboFan compiler - which converts code to Optimized Machine code 
+				- (previos compiler named crankshaft)
+				- process is called optimizaation
+			- Deoptimization - interpretter makes assumption 
+
+c - inline Caching
+d - copy elision 
+e - Garbage COllection 
+	- garbage collection happens in parallel
+	- mark and sweep algorithm 
+		- garbage collectors in V8 - Orinoco, Oil Pan, Scavanger, Full mark compact
+
+- medium article - extra resource for V8 engine 
+	- https://medium.com/@vindrajit1996/how-does-javascript-v8-engine-works-8756648e592f
+	  
+Interpretted 
+	- code executed line by line
+	- fast initial execution
+	- interpretter works here
+Compiled 
+	- first entire code is compiled from High level code to Machine code 
+	- initially heavy but executed fast
+	- compiler works here
+
+ ========================================================================================================================
+
+#9 - Libuv Event Loop
+
+
+
+	
+
+
+
+
+
+
 
 
 
