@@ -235,6 +235,58 @@ Compiled
 
 #9 - Libuv Event Loop
 
+- node js have two core postions - V8 engine, Libuv 
+	- image reference - https://ibb.co/r4HRgW2
+		- clear picture of insides of node js runtime environment
+		- image reference for this - https://ibb.co/tKHf26p
+
+-  libuv maintains callback queues - to manage all the callbacks
+	- once the call stack in js engine is empty then only callback from queue in event loop is pushed to call stack in V8
+	- task of the event loop - to push the tasks from callback queue in correct time and correct order
+	- event loop check the call stack is empty or not and sends callback
+
+- event loop working in libuv - image reference - https://ibb.co/9N6nn5M
+	- 4 major phases in event loop - check image 
+		1. timer phase
+			- checks if any timer callback has expires - it first prioritize the timer callbacks that's waiting in queue
+		2. poll phase
+			- all the callbacks associated with I/O are executed, reading files, incoming connections - api calls
+			- fs, crypto, http.get - most of the callbacks are
+			- important phase 
+		3. check phase
+			- set Immmediete - utility api
+			- in this phase all callbacks which are scheduled from setImmediete are executed
+		4. close phase
+			- opened socket - needed to be closed is handled in this 
+			- socket.on("close")
+			- somewhat cleanup phase
+	- before every phase - event loop also follows an inside cycle 
+		- process.nextTick()
+		- promise callbacks - if we have a promise which is resolved then that callback needed to be executed
+	- meanwhile event loop keeps checking callstack if it's empty it pushes callback into main thread if callstack is empty.
+	- before each phase this inner cycle will happen - image reference - https://ibb.co/JjLDCFG
+	- libuv code written in c language
+
+	- example using code - https://ibb.co/TrLJrpY - below is the working 
+		- event loop executes the process.nextTick one first
+		- then the promise callback
+		- then the setTimeout as event loop goes to timer phase
+		- now follows the inner cycle - nextTick and promise callback - could not find anything so goes to poll phase
+		- inside poll phase - file read and that https request are executed
+		- now follows the inner cycle - could not find anything - goes to check phase
+		- inside check phase - executes the setImmediete 
+		- no socket connectoin or anything - so in close phase nothing happens in this example
+
+- once js engine is free with all the js tasks done - the call stack is empty - event loop in js schedules all the callbacks in libuv
+ 
+	
+	 
+
+
+ 
+
+
+
 
 
 	

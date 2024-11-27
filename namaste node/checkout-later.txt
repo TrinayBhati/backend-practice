@@ -15,4 +15,49 @@
  mvvm design pattern - model view view model
  mvc 
  dependency injection
+ javascript - partial object oriented language
+
+ https options request
+closures 
+hoisting
+callbacks
+
+function one(){
+  setTimeout(()=>{
+    console.log("2 second")
+       two()
+  },2000)
+}
+
+function two(){
+  setTimeout(()=>{
+    console.log("0 second")
+    
+  },0)
+}
+
+one()
+
+function composition js
+
+
+
+function createCounter() {
+  let i = 0;
+
+  return {
+    increment: () => {
+      return i++;
+    },
+    decrement:()=>{
+      return i--
+    }
+  };
+}
+
+const counter = createCounter();
+console.log("hi: ", counter.increment()); 
+console.log("hi: ", counter.increment()); // 1
+console.log("hi: ", counter.decrement()); // 2
+console.log("hi: ", counter.increment()); // 3
 
