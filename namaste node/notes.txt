@@ -277,13 +277,19 @@ Compiled
 		- inside check phase - executes the setImmediete 
 		- no socket connectoin or anything - so in close phase nothing happens in this example
 
+		- file read happens in poll phase - in next cycle - not the first
+
 - once js engine is free with all the js tasks done - the call stack is empty - event loop in js schedules all the callbacks in libuv
- 
-	
-	 
+- event loop waits over poll phase - for any poll event to occur - when there is nothing to do - it waits at poll - when event loop is idle
+	- for this reason we can call it - semi infinite loop 
+	- image reference - https://ibb.co/hdM6dP5
+- in third code when inside the callback of file read - event loop is idle and sits on poll phase - so continues from poll phase only - so the next line printed is immediete not timer phase
+	- in fourth code - when nexttick is inside another nexttick - it resolves all nested nextticks first
+	- nexttick has the highest priority
+	- moves to the phases once all nexttick callbacks are done - all nexttick queues are empty 
 
 
- 
+
 
 
 

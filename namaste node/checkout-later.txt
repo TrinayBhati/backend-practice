@@ -8,19 +8,23 @@
 
  - clustering in node js
     - creating multiple worker processes that share the incoming
- streaming
+ streaming - nodejs stream
+ buffer
+ fs system
  dns module, fs module
  server creation in https without expression
 
  mvvm design pattern - model view view model
  mvc 
  dependency injection
- javascript - partial object oriented language
+ javascript - partial object oriented  
 
  https options request
 closures 
 hoisting
 callbacks
+
+idle in libuv phases
 
 function one(){
   setTimeout(()=>{
