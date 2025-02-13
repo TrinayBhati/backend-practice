@@ -8,7 +8,7 @@ var b = 203889;
 
 // pbkdf2 - password base key derivative function 
 
-crypto.pbkdf2Sync("password", "salt", 50000000, 50, "sha512");
+crypto.pbkdf2Sync("password", "salt", 5000000, 50, "sha512");
 log("sync function key generated");
 
 crypto.pbkdf2("password", "salt", 5000000, 50, "sha512", (err, key) => {

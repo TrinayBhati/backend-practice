@@ -288,6 +288,80 @@ Compiled
 	- nexttick has the highest priority
 	- moves to the phases once all nexttick callbacks are done - all nexttick queues are empty 
 
+ ========================================================================================================================
+
+#10 - Thread Pool in libuv
+
+- 1 Tick - 1 full cycle of event loop 
+- node js official docs - event loop 
+	- image - https://ibb.co/zhVQH5Y
+	- image for 
+	- few more phases in event loop - according to documentation
+		i. pending callbacks
+			whichever I/O callback that have not been executed in poll phase are executed in this phase
+			whenever execution of any I/O callback is deffered (moved) to next event loop cycle in that case this phase executes it
+				- reasons why a callback would be deffered from poll phase
+					1. retrial mechanism
+					2. some error occured
+					3. queue starvation - to reduce starvation we deffer the callback queues
+		ii. idle, prepare
+			only used internally - no need to take care of it as developers
+
+- actual implementation of event loop (I/O loop) is done by libuv library  
+	- before going to poll phase - in timer phase libuv calculates how much time is left for the timers to be expired(executed) 
+	- so it gets idea for how much time libuv has to stay in poll phase
+	- a,b,c are three timer callbacks - a for 5 sec, b for 7 sec, c for 10 sec - so libuv can stay in poll phase for 5 seconds and the execute to timer phase.
+
+- examples of tasks offloaded to Libuv
+	- fs file read, api call, http dns call, making crypto, password hash
+- libuv utilizes threadpool to perform some operations - 
+	- cannot read a file in callstack - as it'll block the main thread - so file read is offloaded to libuv
+	- inside libuv it finds a thread inside thread pool and runs in on that thread.
+		- refer this image - https://ibb.co/KD9t4rb
+			- libuv has the task 
+			- it gives it to a thread inside threadpool 
+			- threadpool does the task 
+			- makes request to os 
+			- then threadpool returns it back  
+			- now this thread is free for another use
+	- in nodejs size of threadpool is 4 by default - 4 threads - UV_THREADPOOL_SIZE = 4
+	- uses one thread - frees it up for another use 
+		- if there are 5 tasks - then libuv wait for one of the task to be completed and then passes it to threadpool to run upon
+	- thread is used for these tasks - fs, dns.lookup, crypto, user specified input, some c++ code
+
+- Is node.js single thread or multi threaded?
+	- if there is only synchronous task then node.js is single threaded, as it'll run everything in single thread.
+	- but if providing asynchronous code and has something from functoin that use threadpool, then it utilizes multiple thread from Libuv UV_THREADPOOL. 
+	- js is single threaded language - so it works that way but libuv can use multiple thread if required.
+
+	- in threadpool.js - if we have 4 crypto calls response prints at same time as all four crypto calls are offloaded to different threads, but when fifth call is there four are printed at same time then fifth one is printed, as it waited for threadpool to be free.
+	- you can change the size of threadpool - process.env.UV_THREADPOOL_SIZE = 2;
+	- can change the size of threadpool according to one's need
+		- making server calls - incoming request - while running a web server - there are alot of requests coming in 
+			- does api uses threadpool - short ans - no
+			- all networking happens in sockets. 
+			- user calls api - makes a TCP connection - need a socket for a connectoin - each socket has a socket descripter/ file descripter (fds)
+				- according to this, we'll have to make one thread per connection which is not good.
+			- in libuv library - all 
+			- in our system - there is epoll in linux, kqueue in macos - scalable I/O evnt notificatoin mechanism
+				- epoll descriptor - is a collection of the socket descripters
+				- one epoll descripto can handle multiple connections
+			- on hardware is kernel on kernel is process - all nodejs everything is a process
+				- need to talk to kernel - on kernel level epoll and other mechanism are there.
+			- as epoll is notificatoin mechanism system - as soon as anything happens in any of the connection in epoll - tells libuv and it executes it using event loop and other processes.
+			- the c code of libuv is interacting with epoll mechanism
+		- summary - https://ibb.co/Jj6Jqryx
+			- process.nextTick - by meaning it should happen in the next tick (cycle) but happens immedietly
+			- setImmediete - by meaninig it should happen immedietly but happens in next tick (cycle)
+
+ ========================================================================================================================
+
+#11 - Creating a Server
+
+	- server can be both hardware and software
+
+
+
 
 
 

@@ -4,6 +4,8 @@
  options - head - api methods
  readFile - utf8 - what is this?
 
+ how to identify event loop waits in poll phase
+
  error boundaries - in react     - react.memo vs useMemo
 
  - clustering in node js
@@ -13,6 +15,13 @@
  fs system
  dns module, fs module
  server creation in https without expression
+
+ epoll, kequeue
+ fds - file descriptor
+ data structure used in epolls
+ streams and buffers
+ event emmitter
+ pipes
 
  mvvm design pattern - model view view model
  mvc 
