@@ -358,8 +358,59 @@ Compiled
 
 #11 - Creating a Server
 
+	- how web works - https://ibb.co/QFjWd9Gt
 	- server can be both hardware and software
+	- hardware - to connect with the computer hardware - need to run application on hardware - that is software
+	- having servers on AWS - AWS is managing the hardware
+		- AWS - EC2 instance - a server - ip can change if we host server on our machine - in EC2 get dedicated ip
+	- creating a server using node - software side - http server 
+	- client - somebody trying to access files - making a socket connection - sends/recieves data - closes socket
+		- socket connecction uses TCP/IP - protocol - set of rules defined for the computers to connect 
+	- http, ftp, smtp servers 
+		- hyper text transfer protocol
+		- file transfer protocol
+		- simple mail transfer protocol
+	- web servers - node js servers - http servers
+	- data comes in packets - comes in chunks - stream of data 
+	- everything maps to an ip - domain names - DNS - verbal address - IP is as coordinates
+		- video data anything that comes in is in chunks, buffers
+	- can I create multiple http servers?
+		- yes, we can create 2 or as many node applications, distuinguish between them using ports - after / endpoint changes 
+	- server can talk to other servers - there can be multiple servers for a single app
+		- image reference - https://ibb.co/MxVg7cfP - db can be on other server - backend can be on other server 
+	- socket vs websocket
+		- socket - opens up when user calls server - when it gets the data back and suppose renders html - done with the server task - it closes
+		- websocket - does not close automatically - stays as a connection between client and server - can have two way communications
+	- express - wrapper around node.js
 
+ ========================================================================================================================
+
+#12 - Databases SQL and NoSQL
+
+	- what is a database
+		- structured or organized collection of data 
+	- dbms is a software which interacts with applicatoin and database as well
+	- types of databases 
+		- relational, noSQL, in memory, cloud db - https://ibb.co/23LTnn02
+	- relational databases - MySQL, PostgreSQL
+		- EF Codd - Codd's 12 rules - whichever follows these rules it becomes a relational db
+			- SQL - structured query language
+	- NoSQL database 
+		- document db, key value db, graph db, wide column db, multimodel db 
+		- mongodb - any db is created using any low level language
+	- image for difference in relatoinal and non relational db -  https://ibb.co/GQTG2GvG
+		- mongodb consists of collections - collections consists of documents - document - json
+	- difference - img reference - https://ibb.co/Hf897dkK
+	
+========================================================================================================================
+
+#13 - Creating a database and mongoDB
+
+	- collection.insertMany([data])
+	- collectoin.find({}).toArray()
+	- crud operations in db
+	- inside collections - methods we can use in mongodb collections
+	     
 
 
 
