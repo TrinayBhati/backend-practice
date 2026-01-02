@@ -1,0 +1,27 @@
+Backend Engineering - building reliable, scalable, fault-tolerant, and maintainable codebases and efficient systems
+
+Life Cycle of a Request - a request travels through several layers 
+	1. DNS Server
+	2. AWS/Cloud Infrastructure
+	3. Firewall
+	4. Reverse Proxy
+	5. Local Application
+
+HTTP(hyper text transfer protocol)
+	1. Statelessness: The protocol has no memory of past interactions
+	2. Client-Server Model: Communication is initiated by the client (e.g. browser) to obtain a response from a server
+
+CORS (Cross-Origin Resource Sharing) - security mechanism enforced by browsers to prevent scripts from accessing resources on a differen
+  • Simple Request: Uses GET/POST/HEAD with standard headers.
+  • Pre-flight Request: Triggered by "non-simple" methods (PUT/DELETE) or JSON content types. The browser sends an OPTIONS request to check the server’s capabilities before sending the actual request
+
+HTTP methods describe the "what" - the intent
+routing describes the "where" - the destination
+
+Serialization and Deserialization 
+   • Serialization is the technique used to convert native data structures (like a Go struct, Python dictionary, or Java object) into a common format suitable for transmission over a network or for storage.
+   • Deserialization (often called binding in frameworks) is the inverse process: translating received data from a network format back into the native format of the programming language so the business logic can process it
+   	- common text-Based Formats (JSON, XML, YAML)
+   	- in node.js deserealization is often handles upstream by middlewares like body-parser or express.json()
+
+Authentication  
