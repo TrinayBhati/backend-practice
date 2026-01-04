@@ -1,2 +1,0 @@
-#5 understanding http for backend engineers, where it all starts
-    statelessnes - 

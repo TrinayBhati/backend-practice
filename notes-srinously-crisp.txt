@@ -24,4 +24,9 @@ Serialization and Deserialization
    	- common text-Based Formats (JSON, XML, YAML)
    	- in node.js deserealization is often handles upstream by middlewares like body-parser or express.json()
 
-Authentication  
+Authentication - "Who are you?"
+Authorization - "What can you do?"
+
+Handlers/Controllers - Presentation Layer
+Services - Business Logic Layer
+Middleware -  
